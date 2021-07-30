@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
-import { GoogleLoginButton } from 'react-social-login-buttons';
+//import { GoogleLoginButton } from 'react-social-login-buttons';
 
 function LoginPage() {
 
@@ -14,9 +14,9 @@ function LoginPage() {
         }}>
             
             <Form className="login-form">
-            <h1 className="text-center">
-                <span className="font-weight-bold">로그인</span>
-            </h1>
+                <h1 className="text-center">
+                    <span className="font-weight-bold">로그인</span>
+                </h1>
             <FormGroup>
                 <Input type="email" placeholder="아이디 또는 이메일"></Input>
             </FormGroup>
@@ -27,15 +27,15 @@ function LoginPage() {
                 <Button type="submit" variant="secondary" size="lg" >
                     Log in
                 </Button>
-            <div className="text-center pt-3">
-                Or continue with your social account
-            </div>
-            <GoogleLoginButton className="mt-3 mb-3"></GoogleLoginButton>
-            <div className="text-center">
-                <a href="/register">Sign up</a>
-                <span className="p-2">|</span>
-                <a href="/stop">Forgot Password</a>
-            </div>
+                <div className="text-center pt-3">
+                    Or continue with your social account
+                </div>
+                {/*<GoogleLoginButton className="mt-3 mb-3"></GoogleLoginButton>*/}
+                <div className="text-center">
+                    <a href="/register">Sign up</a>
+                    <span className="p-2">|</span>
+                    <a href="/stop">Forgot Password</a>
+                </div>
             </div>
             </Form>
 
