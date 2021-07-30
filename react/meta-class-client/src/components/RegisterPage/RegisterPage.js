@@ -12,9 +12,9 @@ function RegisterPage() {
         }}>
             
             <Form className="register-form">
-            <h1 className="text-center">
-                <span className="font-weight-bold">회원가입</span>
-            </h1>
+                <h1 className="text-center">
+                    <span className="font-weight-bold">회원가입</span>
+                </h1>
             <FormGroup>
                 <Input type="email" placeholder="아이디 또는 이메일"></Input>
             </FormGroup>
@@ -27,14 +27,15 @@ function RegisterPage() {
             <FormGroup>
                 <Input type="password" placeholder="비밀번호 확인"></Input>
             </FormGroup>
-            <div className="d-grid gap-2">
-                <Button type="submit" variant="secondary" size="lg" >
-                    회원가입
-                </Button>
-            <div className="text-center">
-            Already registered<a href="/login"> Sign in?</a>
-            </div>
-            </div>
+
+                <div className="d-grid gap-2">
+                    <Button type="submit" variant="secondary" size="lg" >
+                        회원가입
+                    </Button>
+                    <div className="text-center">
+                            Already registered<a href="/login"> Sign in?</a>
+                    </div>
+                </div>
             </Form>
 
         </div>
