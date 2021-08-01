@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class JwtTokenRequestModel {
+public class JwtTokenProtocolModel {
 
     private String accessToken;
     private String refreshToken;
 
-    public static JwtTokenRequestModel of(JwtTokenModel jwtTokenModel) {
-        return JwtTokenRequestModel.builder()
+    public static JwtTokenProtocolModel of(JwtTokenModel jwtTokenModel) {
+        return JwtTokenProtocolModel.builder()
                 .accessToken(jwtTokenModel.getAccessToken())
                 .refreshToken(jwtTokenModel.getRefreshToken())
                 .build();
