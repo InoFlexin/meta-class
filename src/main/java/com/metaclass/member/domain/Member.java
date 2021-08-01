@@ -1,69 +1,56 @@
 package com.metaclass.member.domain;
 
+import com.metaclass.authentication.role.Authority;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class Member implements UserDetails {
+@Builder
+public class Member {
 
     @Id // Primary key : id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ?
     private long id;
 
-    @Column(name = "EMAIL", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "USERNAME", length = 20, nullable = false)
-    private String name;
+    private String username;
 
-    @Column(name = "PASSWORD", length = 30, nullable = false)
+    @Column(length = 500)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     public Member(String email, String name, String password) {
         this.email = email;
-        this.name = name;
+        this.username = name;
         this.password = password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public Member(String email, String name, String password, Authority authority) {
+        this.email = email;
+        this.username = name;
+        this.password = password;
+        this.authority = authority;
     }
 
     @Override
     public String toString() {
-        return "id: " + id + "email: " + email + " username: " + name + " password: " + password;
+        return "id: " + id + "email: " + email + " username: " + username + " password: " + password;
     }
 }
