@@ -9,35 +9,35 @@
 }
 
 /* LandingPage */
-.logo {
+.header-logo {
   margin-top: 20px;
 }
 
-.title1 {
+.header-title {
   color: #585858;
   font-weight: bolder;
 }
 
 
-.title2 {
+.header-info {
   margin-top: 30px;
   font-weight: bolder;
   color: #585858;
 }
 
 
-.container1 {
+.navigation-bar {
   width : 0;
   height: 0;
 }
 
-.container2 {
+.header {
   margin-left: 380px;
   margin-top: 30px;
 }
 
 
-.container3 {
+.main {
 	display: grid;
 	grid-template-columns: repeat(3, 130px);
 	grid-template-rows: repeat(2, 130px);
