@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 //DTO
 public class MemberModel {
 
@@ -14,10 +13,15 @@ public class MemberModel {
     private String email;
     private String name;
     private String password;
-    private int role;
+
+    public MemberModel(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 
     @Override
     public String toString() {
-        return "id: " + id + " email: " + email + " username: " + name + " password: " + password + " role : " + role;
+        return "id: " + id + " email: " + email + " username: " + name + " password: " + password;
     }
 }
