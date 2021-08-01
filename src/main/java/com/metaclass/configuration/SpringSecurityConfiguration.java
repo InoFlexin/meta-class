@@ -1,9 +1,9 @@
 package com.metaclass.configuration;
 
-import com.metaclass.authentication.JwtAccessDeniedHandler;
-import com.metaclass.authentication.JwtAuthenticationEntryPoint;
-import com.metaclass.authentication.JwtAuthenticationFilter;
-import com.metaclass.authentication.JwtTokenProvider;
+import com.metaclass.authentication.jwt.JwtAccessDeniedHandler;
+import com.metaclass.authentication.jwt.JwtAuthenticationEntryPoint;
+import com.metaclass.authentication.jwt.JwtAuthenticationFilter;
+import com.metaclass.authentication.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
