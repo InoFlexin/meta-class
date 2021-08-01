@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     public void memberSave(MemberModel model) {
-        Member member = new Member(model.getEmail(), model.getName(), model.getPassword(), model.getRole());
+        Member member = new Member(model.getEmail(), model.getName(), model.getPassword());
         memberRepository.save(member);
     }
+
 }
