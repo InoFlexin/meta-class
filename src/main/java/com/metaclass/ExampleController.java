@@ -1,5 +1,6 @@
 package com.metaclass;
 
+import com.metaclass.member.model.MemberModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,4 +13,9 @@ public class ExampleController {
         return "index.html";
     }
 
+    @GetMapping(path = "/member/{email}")
+    public MemberModel getMember(String email) {
+        //MemberModel memberModel = memberService.getUser(id);
+        return null;
+    }
 }
