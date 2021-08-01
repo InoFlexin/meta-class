@@ -1,4 +1,4 @@
-package com.metaclass.authentication;
+package com.metaclass.authentication.jwt;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

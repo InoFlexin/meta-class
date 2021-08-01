@@ -1,4 +1,4 @@
-package com.metaclass.authentication;
+package com.metaclass.authentication.jwt;
 
 import com.metaclass.authentication.model.JwtTokenModel;
 import com.metaclass.member.repository.MemberRepository;
