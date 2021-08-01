@@ -31,11 +31,19 @@ public class AuthenticationService {
     @Transactional
     public MemberResponseModel signup(MemberRequestModel memberRequestModel) {
         if(memberRepository.existsByEmail(memberRequestModel.getEmail())) {
-            throw new RuntimeException("이미 가입되어있는 유저입니다.");
+            return MemberResponseModel.builder()
+                    .email(memberRequestModel.getEmail())
+                    .username(memberRequestModel.getUsername())
+                    .status(403)
+                    .responseMessage("이미 가입되어있는 회원입니다.")
+                    .build();
         }
 
         Member member = memberRequestModel.toMember(passwordEncoder);
-        return MemberResponseModel.of(memberRepository.save(member));
+        return MemberResponseModel.of(memberRepository.save(member))
+                .status(200)
+                .responseMessage("회원가입에 성공하였습니다.")
+                .build();
     }
 
     @Transactional
@@ -52,7 +60,7 @@ public class AuthenticationService {
                 .build();
         refreshTokenRepository.save(refreshToken);
 
-        return JwtTokenProtocolModel.of(tokenModel);
+        return JwtTokenProtocolModel.of(tokenModel).status(200).build();
     }
 
     @Transactional
@@ -73,7 +81,7 @@ public class AuthenticationService {
         RefreshToken newRefreshToken = refreshToken.updateValue(tokenModel.getRefreshToken());
         refreshTokenRepository.save(newRefreshToken);
 
-        return JwtTokenProtocolModel.of(tokenModel);
+        return JwtTokenProtocolModel.of(tokenModel).status(200).build();
     }
 
 }
