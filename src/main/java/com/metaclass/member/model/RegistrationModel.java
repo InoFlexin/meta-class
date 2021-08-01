@@ -14,8 +14,6 @@ public class RegistrationModel {
     private String password;
     private int age;
 
-
-
     @Override
     public String toString() {
         return "email: " + email + " password:" + password;
