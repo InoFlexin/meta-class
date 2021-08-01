@@ -1,7 +1,7 @@
 package com.metaclass.test;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import com.metaclass.member.domain.Member;
+
 import com.metaclass.member.model.MemberModel;
 import com.metaclass.member.repository.MemberRepository;
 import com.metaclass.member.service.MemberService;
@@ -18,7 +18,7 @@ public class UserTest {
 
     @Test
     public void userDomainCreateTest() {
-        MemberModel model = new MemberModel("adasddasd12@naver.com", "KCH", "1234", 1);
+        MemberModel model = new MemberModel("adasddasd12@naver.com", "KCH", "1234");
         memberService.memberSave(model);
     }
 }
