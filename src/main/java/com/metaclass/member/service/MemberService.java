@@ -13,18 +13,7 @@ public class MemberService {
     MemberRepository memberRepository;
 
     public void memberSave(MemberModel model) {
-        Member member = new Member(model.getId(), model.getEmail(), model.getName(), model.getPassword(), model.getRole());
+        Member member = new Member(model.getEmail(), model.getName(), model.getPassword(), model.getRole());
         memberRepository.save(member);
     }
-
-//    public MemberModel getUser(String username) {
-//        Member member = memberRepository.findByUsername(username);
-//
-//        if(member == null) {
-//            throw new RuntimeException(username + " is null!");
-//        }
-//
-//        return new MemberModel(member.getUsername(), member.getPassword());
-//    }
-
 }
