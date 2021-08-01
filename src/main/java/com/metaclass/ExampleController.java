@@ -18,10 +18,4 @@ public class ExampleController {
         //MemberModel memberModel = memberService.getUser(id);
         return null;
     }
-
-//    @PostMapping(path = "/member")
-//    public void registerMember(RegistrationModel reg) {
-//
-//    }
-
 }
