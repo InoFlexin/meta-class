@@ -2,7 +2,6 @@ package com.metaclass.test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.metaclass.member.model.MemberModel;
 import com.metaclass.member.repository.MemberRepository;
 import com.metaclass.member.service.MemberService;
 import org.junit.jupiter.api.Test;
