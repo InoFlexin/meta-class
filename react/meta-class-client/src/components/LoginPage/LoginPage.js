@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 //import { GoogleLoginButton } from 'react-social-login-buttons';
+import axios from 'axios';
 
 function LoginPage() {
+
+    useEffect(() => {
+        axios.get('http://locallhost;8080/api/hello')      //endpoint. getRequest를 server 즉 index.js로 보내질 것
+        .then(response => console.log(response.data))   //server 에서 돌아온 response를 콘솔창에 출력해봄
+    }, [])
 
     return (
         <div style={{
