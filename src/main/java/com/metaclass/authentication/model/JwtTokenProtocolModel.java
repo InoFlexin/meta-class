@@ -7,14 +7,14 @@ import lombok.Getter;
 @Builder
 public class JwtTokenProtocolModel {
 
+    private int status;
     private String accessToken;
     private String refreshToken;
 
-    public static JwtTokenProtocolModel of(JwtTokenModel jwtTokenModel) {
+    public static JwtTokenProtocolModelBuilder of(JwtTokenModel jwtTokenModel) {
         return JwtTokenProtocolModel.builder()
                 .accessToken(jwtTokenModel.getAccessToken())
-                .refreshToken(jwtTokenModel.getRefreshToken())
-                .build();
+                .refreshToken(jwtTokenModel.getRefreshToken());
     }
 
     @Override
