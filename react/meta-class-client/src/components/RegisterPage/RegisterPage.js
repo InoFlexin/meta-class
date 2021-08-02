@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom'
 function RegisterPage() {
 
         const [name,setName] = useState('');
-        const [id,setId] = useState('');
         const [pw,setPw] = useState('');
         const [checkPw,setCheckPw] = useState('');
         const [email, setEmail] = useState('');
 
-        console.log(`name : ${name} email : ${email} id :  ${id} pw : ${pw} checkPw : ${checkPw}`)
+        console.log(`name : ${name} email : ${email} pw : ${pw} checkPw : ${checkPw}`)
         function onChange(e){
 
             const type = e.target.name
@@ -18,10 +17,6 @@ function RegisterPage() {
 
                 case 'email':     
                 setEmail(e.target.value);
-                break;
-
-                case 'id':
-                setId(e.target.value);
                 break;
 
                 case 'name':   
@@ -41,7 +36,6 @@ function RegisterPage() {
             }
         }
 
-
     function Register(e){
 
         e.preventDefault()
@@ -49,14 +43,13 @@ function RegisterPage() {
         if(pw !== checkPw){
             return alert("패스워드가 같지 않습니다.")
         }
-        else if(pw === '' || id === ''){
+        else if(pw === ''){
             return alert("패스워드가 없습니다.")
         }
 
         const user ={
             userName: name,
             userEmail: email,
-            userId: id,
             userPassword: pw
         
         }
@@ -66,9 +59,9 @@ function RegisterPage() {
             method: "POST",
             url: 'http://localhost:8080/authentication/register',
             data: {
-                email: 'wsnam0507@gmail.com',
-                username: 'mynickname',
-                password: '123456789'
+                email: email,
+                username: name,
+                password: pw
             }
         }).then((res) => {
                 alert("로그인 완료!");
