@@ -1,5 +1,6 @@
 package com.metaclass.test;
 
+import com.metaclass.member.MemberController;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.metaclass.member.repository.MemberRepository;
@@ -14,10 +15,13 @@ public class UserTest {
     private MemberRepository memberRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private MemberController memberController;
 
     @Test
-    public void userDomainCreateTest() {
-        MemberModel model = new MemberModel("adasddasd12@naver.com", "KCH", "1234");
-        memberService.memberSave(model);
+    public void userReadTest() {
+        System.out.println("유저 조회 테스트 =================================");
+        System.out.println(memberService.getUser("adasddasd12@naver.com"));
+        System.out.println(memberController.findByEmail("adasddasd12@naver.com"));
     }
 }
