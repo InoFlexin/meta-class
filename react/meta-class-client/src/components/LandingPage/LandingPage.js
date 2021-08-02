@@ -3,22 +3,25 @@ import { Card } from 'react-bootstrap';
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 function LandingPage() {
+    //TODO: 수업목록
+
+
     return (
         <div>
-            <div className="container1">
+            <div className="navigation-bar">
                 <NavBar/>  
             </div>
                     
-            <div className="container2">
+            <div className="header">
                 <a href="/" class="logo">
-                    <span class="symbol"><img src="./images/logo.svg" alt="" /></span><span className="title">M E T A  C L A S S</span>
+                    <span class="symbol"><img src="./images/logo.svg" alt="" /></span><span className="header-title">M E T A  C L A S S</span>
                 </a>
-                <h1 className="title2">마인크래프트는 못 참지!!!<br />
+                <h1 className="header-info">마인크래프트는 못 참지!!!<br />
                 비대면 수업을 메타버스를 통한 마인크래프트로~!</h1><br></br>
                 <p>지루한 비대면 수업을 각광받고 있는 메타버스 기술을 활용하여 활기차고 적극적인 학습을 주도하여 수업의 효율을 높여줍니다.</p>
             </div>
 
-            <div className="container3">
+            <div className="main">
                 <span className="item item1">
                     <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src= "./images/b1.jpg" />
