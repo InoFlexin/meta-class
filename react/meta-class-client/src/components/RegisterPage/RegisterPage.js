@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom'
 function RegisterPage() {
 
         const [name,setName] = useState('');
@@ -117,7 +117,7 @@ function RegisterPage() {
                         회원가입
                     </Button>
                     <div className="text-center">
-                            Already registered<a href="/login"> Sign in?</a>
+                    Already registered<Link to="/login"><Button>Sign in</Button></Link>
                     </div>
                 </div>
             </Form>

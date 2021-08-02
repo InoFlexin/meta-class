@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Link } from 'react-router-dom'
 //import { GoogleLoginButton } from 'react-social-login-buttons';
 
 function LoginPage() {
@@ -77,7 +78,7 @@ function LoginPage() {
                 </div> */}
                 {/*<GoogleLoginButton className="mt-3 mb-3"></GoogleLoginButton>*/}
                 <div className="text-center">
-                    <a href="/register">Sign up</a>
+                <Link to="/register"><Button>sin up</Button></Link>
                     <span className="p-2">|</span>
                     <a href="/stop">Forgot Password</a>
                 </div>
