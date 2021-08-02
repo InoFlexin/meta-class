@@ -6,6 +6,7 @@ import LandingPage from "./components/LandingPage/LandingPage"
 import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 
+
 class App extends React.Component {
 
   componentDidMount() {
@@ -20,13 +21,14 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-          </Switch>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/register" component={RegisterPage} />
+            </Switch>
         </div>
       </Router>
+      
     );
   }
 }
