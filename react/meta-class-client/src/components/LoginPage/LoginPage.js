@@ -30,13 +30,16 @@ function LoginPage() {
       }
     }
   
-    function Login(){
+    function Login(e){
+
+      e.preventDefault()
+
       const params = new URLSearchParams();
 
         params.append('email', id);
         params.append('password', pw);
 
-        axios.post('/authentication/register', params)
+        axios.post('/authentication/login', params)
         .then(function (res) {
           console.log(res);
         })
