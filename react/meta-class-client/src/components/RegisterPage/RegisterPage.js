@@ -113,7 +113,7 @@ function RegisterPage() {
             </FormGroup>
 
                 <div className="d-grid gap-2">
-                    <Button type="submit" variant="secondary" size="lg" block onChange={Register} >
+                    <Button type="submit" variant="secondary" size="lg" block onClick={Register} >
                         회원가입
                     </Button>
                     <div className="text-center">
