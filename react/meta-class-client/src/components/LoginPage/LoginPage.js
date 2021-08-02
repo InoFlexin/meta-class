@@ -31,22 +31,37 @@ function LoginPage() {
     }
   
     function Login(){
-      axios({
-        method: 'POST',
-        url: 'http://localhost:8080/authentication/login',
-        data: {
-          "email": id,
-          "password": pw
-        }
-      }).then((res)=>{
-        console.log(res);
-        console.log(`token : ${res.data.accessToken}`);
-        localStorage.setItem("token",res.data.accessToken);
+      const params = new URLSearchParams();
+
+        params.append('email', id);
+        params.append('password', pw);
+
+        axios.post('/authentication/register', params)
+        .then(function (res) {
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+
+      // axios({
+      //   method: 'POST',
+      //   url: 'http://localhost:8080/authentication/login',
+      //   data: {
+      //     "email": id,
+      //     "password": pw
+      //   }
+      // }).then((res)=>{
+      //   console.log(res);
+      //   console.log(`token : ${res.data.accessToken}`);
+      //   localStorage.setItem("token",res.data.accessToken);
   
-        console.log(localStorage.getItem("token"));
-      }).catch((res)=>{
-        console.log(res);
-      })
+      //   console.log(localStorage.getItem("token"));
+      // }).catch((res)=>{
+      //   console.log(res);
+      // })
       
     }
 
@@ -67,7 +82,7 @@ function LoginPage() {
                 <Input type="email" placeholder="아이디 또는 이메일" name="ID" value={id} onChange={onChange}></Input>
             </FormGroup>
             <FormGroup>
-                <Input type="password" placeholder="비밀번호" name="PW" value={pw} onchange={onChange}></Input>
+                <Input type="passwd" placeholder="비밀번호" name="PW" value={pw} onChange={onChange}></Input>
             </FormGroup>
             <div className="d-grid gap-2">
                 <Button type="submit" variant="secondary" size="lg" block onClick={Login} >
