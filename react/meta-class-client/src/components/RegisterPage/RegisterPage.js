@@ -54,20 +54,35 @@ function RegisterPage() {
         
         }
         console.log(1)
+        const params = new URLSearchParams();
 
-        axios({
-            method: "POST",
-            url: 'http://localhost:8080/authentication/register',
-            data: {
-                email: email,
-                username: name,
-                password: pw
-            }
-        }).then((res) => {
-                alert("로그인 완료!");
-        }).catch((res) => {
-            console.log(res);
+        params.append('email', email);
+        params.append('username', name);
+        params.append('password', pw);
+
+        axios.post('/authentication/register', params)
+        .then(function (res) {
+          console.log(res);
         })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+
+        // axios({
+        //     method: "POST",
+        //     url: 'http://localhost:8080/authentication/register',
+        //     data: {
+        //         email: email,
+        //         username: name,
+        //         password: pw
+        //     }
+        // }).then((res) => {
+        //         alert("로그인 완료!");
+        // }).catch((res) => {
+        //     console.log(res);
+        // })
+
         // axios.post('',user).then(
         //     function(res){
         //         alert("로그인 성공");
