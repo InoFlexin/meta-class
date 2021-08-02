@@ -19,14 +19,14 @@ public class MemberService {
                 .orElseThrow(()->new IllegalArgumentException("email을 확인해주세요"));
     }
 
-    public String delUser(long id) { // id 값으로 삭제
-        String result;
+    public int delUser(long id) { // id 값으로 삭제
+        int result; // 1: Delete Success, 0: Delete Failed(null data)
         try {
             memberRepository.deleteById(id);
-            result = "Delete Success";
+            result = 1;
         } catch(EmptyResultDataAccessException e) { // 존재하지 않는 id 일 경우 예외발생
             e.printStackTrace();
-            result = "there's no data";
+            result = 0;
         }
         return result;
     }
