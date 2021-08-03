@@ -1,12 +1,13 @@
 package com.metaclass.lesson.domain;
 
-import com.metaclass.authentication.role.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+// Entity
 
 @Entity
 @Getter
@@ -17,7 +18,7 @@ public class Lesson {
 
     @Id // Primary key : id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     private String roomName;    // 방제목
 
@@ -33,6 +34,6 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "roomId: " + Id + " roomName: " + roomName + " userName: " + teacher + " lessonName: " + lessonName;
+        return "roomId: " + id + " roomName: " + roomName + " userName: " + teacher + " lessonName: " + lessonName;
     }
 }
