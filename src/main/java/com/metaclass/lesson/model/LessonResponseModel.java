@@ -16,7 +16,7 @@ public class LessonResponseModel {
 
     public static LessonResponseModelBuilder of(Lesson lesson) {
         return LessonResponseModel.builder()
-                .roomName(lesson.getRoomName())
+                .roomName(lesson.getClassName())
                 .teacher(lesson.getTeacher())
                 .lessonName(lesson.getLessonName());
     }

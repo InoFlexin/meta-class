@@ -10,13 +10,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LessonRequestModel {
 
-    private String roomName;
+    private String className;
     private String teacher;
     private String lessonName;
 
     public Lesson toLesson() {
         return Lesson.builder()
-                .roomName(roomName)
+                .className(className)
                 .teacher(teacher)
                 .lessonName(lessonName)
                 .build();
@@ -25,7 +25,7 @@ public class LessonRequestModel {
     @Override
     public String toString() {
         return "LessonModel{" +
-                "roomName='" + roomName + '\'' +
+                "roomName='" + className + '\'' +
                 ", teacher='" + teacher + '\'' +
                 ", lessonName='" + lessonName + '\'' +
                 '}';
