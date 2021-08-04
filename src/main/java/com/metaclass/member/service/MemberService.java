@@ -4,6 +4,7 @@ import com.metaclass.member.domain.Member;
 import com.metaclass.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +20,14 @@ public class MemberService {
                 .orElseThrow(()->new IllegalArgumentException("email을 확인해주세요"));
     }
 
-    public int delUser(long id) { // id 값으로 삭제
-        int result; // 1: Delete Success, 0: Delete Failed(null data)
+    public HttpStatus delUser(long id) { // id 값으로 삭제
         try {
             memberRepository.deleteById(id);
-            result = 1;
+            return HttpStatus.OK;
         } catch(EmptyResultDataAccessException e) { // 존재하지 않는 id 일 경우 예외발생
             e.printStackTrace();
-            result = 0;
+            return HttpStatus.BAD_REQUEST;
         }
-        return result;
     }
 
 }

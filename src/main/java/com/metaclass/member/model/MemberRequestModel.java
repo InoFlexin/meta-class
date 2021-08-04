@@ -1,5 +1,5 @@
 package com.metaclass.member.model;
-
+// 회원가입 같은거 할때
 import com.metaclass.authentication.role.Authority;
 import com.metaclass.member.domain.Member;
 import lombok.AllArgsConstructor;

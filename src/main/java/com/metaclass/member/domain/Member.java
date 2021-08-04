@@ -51,6 +51,6 @@ public class Member {
 
     @Override
     public String toString() {
-        return "id: " + id + "email: " + email + " username: " + username + " password: " + password;
+        return "id: " + id + " email: " + email + " username: " + username + " password: " + password;
     }
 }

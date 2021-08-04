@@ -21,7 +21,7 @@ public class MemberController {
 
     @DeleteMapping(path = "/member/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-            return new ResponseEntity<>(memberService.delUser(id), memberService.delUser(id) == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(memberService.delUser(id));
     }
 
 }
