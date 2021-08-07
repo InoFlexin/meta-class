@@ -1,7 +1,6 @@
 /* loginPage */
-
 .login-form {
-  width : 100%;
+  width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
@@ -9,42 +8,37 @@
 }
 
 /* LandingPage */
-.header-logo {
-  margin-top: 20px;
+.header {
+  margin-left: 90px;
 }
 
-.header-title {  color: #585858;
+.header-title  {
+  color: #585858;
   font-weight: bolder;
 }
-
 
 .header-info {
-  margin-top: 30px;
+  padding-top: 60px;
   font-weight: bolder;
   color: #585858;
-}
-
-
-.navigation-bar {
-  width : 0;
-  height: 0;
-}
-
-.header {
-  margin-left: 380px;
-  margin-top: 30px;
-}
-
-
-.main {
-	display: grid;
-	grid-template-columns: repeat(3, 130px);
-	grid-template-rows: repeat(2, 130px);
-	column-gap: 180px;
-	row-gap: 260px;
-  margin-left: 380px;
   text-align: center;
-  ;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.card {
+  text-decoration-line: none;
+}
+
+.card-title, .card-text {
+  color: #585858;
+  font-weight: bolder;
+}
+
+.create {
+  margin: 1rem 0;
 }
 
 .copyright {
@@ -54,7 +48,7 @@
   list-style: none;
   font-size: 0.8em;
   color: rgba(88, 88, 88, 0.5);
-  margin-left: 1150px;
+  text-align: center;
 }
 
 .copyright a {
@@ -70,7 +64,7 @@
 }
 
 .copyright li:first-child {
-    border-left: 0;
-    padding-left: 0;
-    margin-left: 0;
-  }
+  border-left: 0;
+  padding-left: 0;
+  margin-left: 0;
+}
