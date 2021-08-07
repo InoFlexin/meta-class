@@ -25,7 +25,7 @@ public class LessonRequestModel {
     @Override
     public String toString() {
         return "LessonModel{" +
-                "roomName='" + className + '\'' +
+                "className='" + className + '\'' +
                 ", teacher='" + teacher + '\'' +
                 ", lessonName='" + lessonName + '\'' +
                 '}';

@@ -10,14 +10,15 @@ public class LessonResponseModel {
 
     private int status;
     private String responseMessage;
-    private String roomName;
+    private String className;
     private String teacher;
     private String lessonName;
 
     public static LessonResponseModelBuilder of(Lesson lesson) {
         return LessonResponseModel.builder()
-                .roomName(lesson.getClassName())
+                .className(lesson.getClassName())
                 .teacher(lesson.getTeacher())
                 .lessonName(lesson.getLessonName());
     }
+
 }
