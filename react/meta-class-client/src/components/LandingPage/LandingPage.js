@@ -11,7 +11,7 @@ function LandingPage() {
 
   const handleDelete = useCallback(() => {
     if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete("localhost:8080/lesson/class");
+      axios.delete("/lesson/class");
     }
   }, []);
 
@@ -50,8 +50,10 @@ function LandingPage() {
   );
 
   function onChange(e) {
+
     const type = e.target.lessonName;
     switch (type) {
+
       case "lessonName":
         setLessonName(e.target.value);
         break;
@@ -68,6 +70,22 @@ function LandingPage() {
         return 1;
     }
   }
+
+  console.log(1)
+  const params = new URLSearchParams();
+
+  params.append('lessonName', lessonName);
+  params.append('teacher', teacher);
+  params.append('className', className);
+
+  axios.post('/lesson/class', params)
+  .then(function (res) {
+    console.log(res);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
     return (
@@ -92,7 +110,7 @@ function LandingPage() {
 
   useEffect(() => {
     // TODO 렌더링 시 response.data를 classes state에 저장
-    axios.get("localhost:8080/lesson/class").then((response) => setClasses(response.data));
+    axios.get("/lesson/class").then((response) => setClasses(response.data));
   }, []);
 
   return (
