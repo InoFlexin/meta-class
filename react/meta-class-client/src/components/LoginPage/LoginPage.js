@@ -96,9 +96,7 @@ function LoginPage() {
                 </div> */}
                 {/*<GoogleLoginButton className="mt-3 mb-3"></GoogleLoginButton>*/}
                 <div className="text-center">
-                <Link to="/register"><Button>sin up</Button></Link>
-                    <span className="p-2">|</span>
-                    <a href="/stop">Forgot Password</a>
+                <Link to="/register"><p>Sign up</p></Link>
                 </div>
             </div>
             </Form>

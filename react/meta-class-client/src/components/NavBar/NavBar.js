@@ -1,35 +1,27 @@
 import React from 'react'
-import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem
-} from 'cdbreact';
-import { NavLink } from 'react-router-dom';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NavBar() {
     return (
-        <div style={{ display: 'flex', height: '195vh', overflow: 'scroll initial' }}>
-        <CDBSidebar textColor="#fff" backgroundColor="#333">
-          <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-            <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-              MeetClass
+
+      <Navbar bg="white" expand="lg" fixed="top">
+        <Container>
+          <Navbar.Brand href="#/">
+            <a href="/" className="logo">
+              <span><img src="./images/logo.svg" alt="" /></span>
+              <span className="header-title" >M E T A  C L A S S</span>
             </a>
-          </CDBSidebarHeader>
-  
-          <CDBSidebarContent className="sidebar-content">
-            <CDBSidebarMenu>
-              <NavLink exact to="/" activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink exact to="/login" activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon="key">Login</CDBSidebarMenuItem>
-              </NavLink>
-            </CDBSidebarMenu>
-          </CDBSidebarContent>
-        </CDBSidebar>
-      </div>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     )
 }
 

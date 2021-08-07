@@ -125,7 +125,7 @@ function RegisterPage() {
                         회원가입
                     </Button>
                     <div className="text-center">
-                    Already registered<Link to="/login"><Button>Sign in</Button></Link>
+                    Already registered  <Link to="/login"><span className="signIn">Sign in</span></Link>
                     </div>
                 </div>
             </Form>
