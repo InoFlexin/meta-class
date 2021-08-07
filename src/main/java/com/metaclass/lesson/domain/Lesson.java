@@ -34,6 +34,6 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "roomId: " + id + " className: " + className + " userName: " + teacher + " lessonName: " + lessonName;
+        return "classId: " + id + " className: " + className + " userName: " + teacher + " lessonName: " + lessonName;
     }
 }
