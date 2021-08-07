@@ -1,0 +1,67 @@
+{
+    "ClassList" : [
+        {
+            "id" : 1,
+            "lessonName" : "HTML",
+            "teacher" : "LSH",
+            "className" : "HTML 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 2,
+            "lessonName" : "CSS",
+            "teacher" : "LSH",
+            "className" : "CSS 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 3,
+            "lessonName" : "Javascript",
+            "teacher" : "LSH",
+            "className" : "Javascript 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 4,
+            "lessonName" : "Java",
+            "teacher" : "NDY",
+            "className" : "Java 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 5,
+            "lessonName" : "Spring",
+            "teacher" : "NDY",
+            "className" : "Spring 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 6,
+            "lessonName" : "algorithm",
+            "teacher" : "NDY",
+            "className" : "algorithm 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 7,
+            "lessonName" : "Kotlin",
+            "teacher" : "KCH",
+            "className" : "Kotlin  끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 8,
+            "lessonName" : "Springboot",
+            "teacher" : "KCH",
+            "className" : "Springboot 로 끝내기",
+            "url" : ""
+        },
+        {
+            "id" : 9,
+            "lessonName" : "C++",
+            "teacher" : "KCH",
+            "className" : "C++ 끝내기",
+            "url" : ""
+        }
+    ]
+}
