@@ -1,138 +1,165 @@
-import React from 'react'
-import { Card } from 'react-bootstrap';
+import React, { useCallback, useEffect, useState } from "react";
+import { Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 function LandingPage() {
-    //TODO: 수업목록
 
+  const [show, setShow] = useState(false);
 
+  const handleDelete = useCallback(() => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios.delete("localhost:8080/lesson/class");
+    }
+  }, []);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [classes, setClasses] = useState([
+    {
+      lessonName: "CLASS_1",
+      teacher: "kkk",
+      className: "Css 강의",
+    },
+    {
+      lessonName: "CLASS_1",
+      teacher: "kkk",
+      className: "Css 강의",
+    },
+    {
+      lessonName: "CLASS_1",
+      teacher: "kkk",
+      className: "Css 강의",
+    },
+    {
+      lessonName: "CLASS_1",
+      teacher: "kkk",
+      className: "Css 강의",
+    },
+  ]);
+
+  const [lessonName, setLessonName] = useState("");
+  const [teacher, setTeacher] = useState("");
+  const [className, setClassName] = useState("");
+
+  console.log(
+    `lessonName : ${lessonName}  teacher : ${teacher} className : ${className}`
+  );
+
+  function onChange(e) {
+    const type = e.target.lessonName;
+    switch (type) {
+      case "lessonName":
+        setLessonName(e.target.value);
+        break;
+
+      case "teacher":
+        setTeacher(e.target.value);
+        break;
+
+      case "className":
+        setClassName(e.target.value);
+        break;
+
+      default:
+        return 1;
+    }
+  }
+
+  const mapClassas = classes.map(({ className, lessonName, teacher }) => {
     return (
-        <div>
-            <div className="navigation-bar">
-                <NavBar/>  
-            </div>
-                    
-            <div className="header">
-                <a href="/" class="logo">
-                    <span class="symbol"><img src="./images/logo.svg" alt="" /></span><span className="header-title">M E T A  C L A S S</span>
-                </a>
-                <h1 className="header-info">마인크래프트는 못 참지!!!<br />
-                비대면 수업을 메타버스를 통한 마인크래프트로~!</h1><br></br>
-                <p>지루한 비대면 수업을 각광받고 있는 메타버스 기술을 활용하여 활기차고 적극적인 학습을 주도하여 수업의 효율을 높여줍니다.</p>
-            </div>
+      <Link to={`/class/${className}`} className="card">
+        <Card >
+          <Card.Img variant="top" src="./images/b2.jpg" />
+          <Card.Body>
+              <Card.Title className="card-title" type="text" name="className" onChange={onChange}>
+                {className}
+              </Card.Title>
+              <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
+                {lessonName} - {teacher}
+              </Card.Text>
+              <Button className="delete" variant="secondary" onClick={handleDelete}>
+                삭제
+              </Button>
+          </Card.Body>
+        </Card>
+      </Link>
+    );
+  });
 
-            <div className="main">
-                <span className="item item1">
-                    <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src= "./images/b1.jpg" />
-                    <Card.Body>
-                        <Card.Title>Class 1</Card.Title>
-                        <Card.Text>
-                            HTML 강의 - LSH
-                        </Card.Text>
-                    </Card.Body>
-                    </Card>
-                </span>
-            
-                <span className="item item2">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b2.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 2</Card.Title>
-                            <Card.Text>
-                                Css 강의 - LSH
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+  useEffect(() => {
+    // TODO 렌더링 시 response.data를 classes state에 저장
+    axios.get("localhost:8080/lesson/class").then((response) => setClasses(response.data));
+  }, []);
 
-                <span className="item item3">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b3.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 3</Card.Title>
-                            <Card.Text>
-                                Javascript 강의 - LSH
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+  return (
+    <div>
+      <div className="navigation-bar">
+        <NavBar />
+      </div>
+      <Container fluid>
+        <Row>
+          <Col className="header-info">
+            <h1>
+              <p>비대면 수업을 메타버스를 통한 마인크래프트로~!</p>
+            </h1>
+            <p>
+              지루한 비대면 수업을 각광받고 있는 메타버스 기술을 활용하여
+              활기차고 적극적인 학습을 주도하여 수업의 효율을 높여줍니다.
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col />
+          <Col />
+          <Col>
+            <Button className="create" variant="secondary" onClick={handleShow}>
+              CLASS 생성
+            </Button>
+          </Col>
+        </Row>
+      </Container>
 
-                <span className="item item4">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b4.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 4</Card.Title>
-                            <Card.Text>
-                                Java 강의 - NDY
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+      <Row sm={3} style={{ margin: "10px 67px" }}>
+        {mapClassas}
+      </Row>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Class 생성</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Label>수업이름</Form.Label>
+            <Form.Control type="text" placeholder="수업이름을 입력해주세요" />
 
-                <span className="item itme5">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b5.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 5</Card.Title>
-                            <Card.Text>
-                                Spring 강의 - NDY
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+            <Form.Label>선생님</Form.Label>
+            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" />
 
-                <span className="item item6">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b6.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 6</Card.Title>
-                            <Card.Text>
-                                알고리즘 강의 - NDY
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+            <Form.Label>강좌명</Form.Label>
+            <Form.Control type="text" placeholder="강좌명을 입력해주세요" />
 
-                <span className="item item7">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b7.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 7</Card.Title>
-                            <Card.Text>
-                                코틀린 강의 - KCH
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
+              <Form.Control type="file" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            생성
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-                <span className="item item8">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b8.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 8</Card.Title>
-                            <Card.Text>
-                                스프링부트 강의 - KCH
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
-
-                <span className ="item item9">
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src= "./images/b9.jpg" />
-                        <Card.Body>
-                            <Card.Title>Class 9</Card.Title>
-                            <Card.Text>
-                                C++ 강의 - KCH
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </span>
-            </div>
-            <Footer/>
-        </div>
-    )
+      <Footer />
+    </div>
+  );
 }
 
-export default LandingPage
+export default LandingPage;
