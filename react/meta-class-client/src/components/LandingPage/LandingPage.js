@@ -50,6 +50,9 @@ function LandingPage() {
     `lessonName : ${lessonName}  teacher : ${teacher} className : ${className}`
   );
 
+    //나중에 사진업로드 - file에 클래스 이미지 파일 저장됨
+    const [file, setFile] = useState();
+
   function onChange(e) {
 
     const type = e.target.lessonName;
