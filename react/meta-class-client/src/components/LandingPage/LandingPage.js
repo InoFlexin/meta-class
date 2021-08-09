@@ -9,9 +9,10 @@ function LandingPage() {
 
   const [show, setShow] = useState(false);
 
-  const handleDelete = useCallback(() => {
+  const handleDelete = useCallback((teacher, className) => {
     if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete("/lesson/class");
+
+      axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`);
     }
   }, []);
 
@@ -108,7 +109,7 @@ function LandingPage() {
               <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
                 {lessonName} - {teacher}
               </Card.Text>
-              <Button className="delete" variant="secondary" onClick={handleDelete}>
+              <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
                 삭제
               </Button>
           </Card.Body>
