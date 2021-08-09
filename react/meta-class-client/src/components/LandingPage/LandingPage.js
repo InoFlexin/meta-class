@@ -97,26 +97,29 @@ function LandingPage() {
   };
 
 
-  const mapClassas = classes.map(({ className, lessonName, teacher }) => {
+  console.log(classes);
+
+  //classes에 map함수가 없어서 생기는 오류를 방지 하기위해 classes 확인
+  const mapClassas = classes && classes.map(({ lessonName, teacher, className }) => {
     return (
       <Link to={`/class/${className}`} className="card">
-        <Card >
+        <Card>
           <Card.Img variant="top" src="./images/b2.jpg" />
           <Card.Body>
-              <Card.Title className="card-title" type="text" name="className" onChange={onChange}>
-                {className}
-              </Card.Title>
-              <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
-                {lessonName} - {teacher}
-              </Card.Text>
-              <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
-                삭제
-              </Button>
+            <Card.Title className="card-title" type="text" name="className">
+              {className}
+            </Card.Title>
+            <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
+              {lessonName} - {teacher}
+            </Card.Text>
+            <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
+              삭제
+            </Button>
           </Card.Body>
         </Card>
       </Link>
-    );
-  });
+      );
+    });
 
   useEffect(() => {
     // TODO 렌더링 시 response.data를 classes state에 저장
@@ -161,13 +164,13 @@ function LandingPage() {
         <Modal.Body>
           <Form>
             <Form.Label>수업이름</Form.Label>
-            <Form.Control type="text" placeholder="수업이름을 입력해주세요" />
+            <Form.Control type="text" placeholder="수업이름을 입력해주세요" value={lessonName} name="lessonName" onChange={onChange}/>
 
             <Form.Label>선생님</Form.Label>
-            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" />
+            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" value={teacher} name="teacher" onChange={onChange}/>
 
             <Form.Label>강좌명</Form.Label>
-            <Form.Control type="text" placeholder="강좌명을 입력해주세요" />
+            <Form.Control type="text" placeholder="강좌명을 입력해주세요" value={className} name="className" onChange={onChange}/>
 
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
