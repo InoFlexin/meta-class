@@ -121,10 +121,14 @@ function LandingPage() {
       );
     });
 
-  useEffect(() => {
-    // TODO 렌더링 시 response.data를 classes state에 저장
-    axios.get("/lesson/class").then((response) => setClasses(response.data));
-  }, []);
+    useEffect(() => {
+      // 렌더링 시 response.data를 classes state에 저장
+      axios.get("/lesson/class/find/all")
+        .then(response => {
+          console.log(response);
+          setClasses(response.data.lessons);
+        });
+    }, []);
 
   return (
     <div>
@@ -174,7 +178,10 @@ function LandingPage() {
 
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={e => { 
+                  setFile(e.target.files[0]);
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
