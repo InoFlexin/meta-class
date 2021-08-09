@@ -71,20 +71,29 @@ function LandingPage() {
     }
   }
 
-  console.log(1)
-  const params = new URLSearchParams();
+  //post 
+  const handlePost = async () => {
+    const params = new URLSearchParams();
 
-  params.append('lessonName', lessonName);
-  params.append('teacher', teacher);
-  params.append('className', className);
+    params.append("lessonName", lessonName);
+    params.append("teacher", teacher);
+    params.append("className", className);
 
-  axios.post('/lesson/class', params)
-  .then(function (res) {
-    console.log(res);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    await axios
+      //hearder에 토큰을 삽입함 (제거해도 무방)
+      .post("/lesson/class", params, {
+        hearder: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then(function (res) {
+        //post 완료시 모달꺼짐
+        handleClose();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
@@ -169,7 +178,7 @@ function LandingPage() {
           <Button variant="secondary" onClick={handleClose}>
             닫기
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handlePost}>
             생성
           </Button>
         </Modal.Footer>
