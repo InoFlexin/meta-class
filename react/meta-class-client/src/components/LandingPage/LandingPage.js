@@ -15,7 +15,7 @@ function LandingPage() {
     //hearder에 토큰을 삽입함 (제거해도 무방)
       axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
         header: {
-          xAuthToken: localStorage.getItem("xAuthToken"),
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
         },
       });
 
@@ -93,7 +93,7 @@ function LandingPage() {
       //hearder에 토큰을 삽입함 (제거해도 무방)
       .post("/lesson/class", params, {
         hearder: {
-          xAuthToken: localStorage.getItem("xAuthToken"),
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
         },
       })
       .then(function (res) {
@@ -133,7 +133,7 @@ function LandingPage() {
     // 렌더링 시 response.data를 classes state에 저장 - hearder에 토큰을 삽입함 (제거해도 무방)
     axios.get("/lesson/class/find/all", {
         header: {
-          xAuthToken: localStorage.getItem("xAuthToken"),
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
         },
       })
       .then(response => {
