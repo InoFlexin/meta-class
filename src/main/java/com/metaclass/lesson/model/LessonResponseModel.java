@@ -20,5 +20,4 @@ public class LessonResponseModel {
                 .teacher(lesson.getTeacher())
                 .lessonName(lesson.getLessonName());
     }
-
 }

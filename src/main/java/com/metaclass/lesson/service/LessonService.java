@@ -1,37 +1,41 @@
 package com.metaclass.lesson.service;
 
 import com.metaclass.lesson.domain.Lesson;
-import com.metaclass.lesson.model.LessonFindModel;
-import com.metaclass.lesson.model.LessonRequestModel;
-import com.metaclass.lesson.model.LessonResponseModel;
-import com.metaclass.lesson.model.LessonStatusModel;
+import com.metaclass.lesson.model.*;
 import com.metaclass.lesson.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Service
 public class LessonService {
 
     @Autowired
     private LessonRepository lessonRepository;
 
-    public LessonResponseModel findRoom(LessonFindModel lessonFindModel) {
-        Optional<Lesson> lessonOptional = lessonRepository.findByTeacherAndClassName(lessonFindModel.getTeacher(), lessonFindModel.getClassName());
+    public LessonFindAllModel findAllRoom() {
+        return new LessonFindAllModel(
+                lessonRepository.findAll()
+                        .stream()
+                        .map(lesson -> LessonResponseModel.of(lesson).status(200).build())
+                        .collect(Collectors.toList())
+        );
+    }
 
-        if(lessonOptional.isPresent()) {
-            Lesson lesson = lessonOptional.get();
-            return LessonResponseModel.of(lesson)
-                    .status(200)
-                    .responseMessage("방을 찾았습니다.")
-                    .build();
+    public LessonFindAllModel findRoom(LessonFindModel lessonFindModel) {
+
+        if(!lessonFindModel.getTeacher().isEmpty() || !lessonFindModel.getClassName().isEmpty()) {   // 조건문제인듯..
+            return new LessonFindAllModel(
+                    lessonRepository.findByTeacherAndClassName(lessonFindModel.getTeacher(), lessonFindModel.getClassName())
+                            .stream()
+                            .map(lesson -> LessonResponseModel.of(lesson).status(200).responseMessage(lessonFindModel.getClassName() + "을 가져왔습니다.").build())
+                            .collect(Collectors.toList())
+            );
+        } else {
+            return new LessonFindAllModel(new ArrayList<>());
         }
-        return LessonResponseModel.builder()
-                .status(404)
-                .responseMessage("존재하지 않습니다!")
-                .build();
     }
 
     public LessonResponseModel createRoom(LessonRequestModel lessonRequestModel) {
@@ -44,15 +48,12 @@ public class LessonService {
 
     public LessonStatusModel deleteRoom(LessonFindModel lessonFindModel) {
         if(lessonFindModel.getTeacher() == null || lessonFindModel.getClassName() == null)  {
-            return LessonStatusModel.getStatus(403);
+            return LessonStatusModel.getStatus(400);
+        } else if(lessonRepository.findByTeacherAndClassName(lessonFindModel.getTeacher(), lessonFindModel.getClassName()).isEmpty()) {
+            return LessonStatusModel.getStatus(404);
         }
 
-        try {
-            lessonRepository.deleteByTeacherAndClassName(lessonFindModel.getTeacher(), lessonFindModel.getClassName());
-            return LessonStatusModel.getStatus(200);
-        } catch(EmptyResultDataAccessException e) { // 존재하지 않는 방일 경우 예외발생
-            e.printStackTrace();
-            return LessonStatusModel.getStatus(403);
-        }
+        lessonRepository.deleteByTeacherAndClassName(lessonFindModel.getTeacher(), lessonFindModel.getClassName());
+        return LessonStatusModel.getStatus(200);
     }
 }
