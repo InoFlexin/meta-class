@@ -9,15 +9,16 @@ function LandingPage() {
 
   const [show, setShow] = useState(false);
 
-  const handleDelete = useCallback(() => {
+  const handleDelete = useCallback((teacher, className) => {
     if (window.confirm("삭제하시겠습니까?")) {
 
-      //hearder에 토큰을 삽입함 (제거해도 무방)
+    //hearder에 토큰을 삽입함 (제거해도 무방)
       axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
         header: {
           xAuthToken: localStorage.getItem("xAuthToken"),
         },
       });
+
     }
   }, []);
 
@@ -54,6 +55,9 @@ function LandingPage() {
   console.log(
     `lessonName : ${lessonName}  teacher : ${teacher} className : ${className}`
   );
+
+  //나중에 사진업로드 - file에 클래스 이미지 파일 저장됨
+    const [file, setFile] = useState();
 
   function onChange(e) {
 
@@ -104,20 +108,21 @@ function LandingPage() {
   console.log(classes);
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
+
     return (
       <Link to={`/class/${className}`} className="card">
-        <Card >
+        <Card>
           <Card.Img variant="top" src="./images/b2.jpg" />
           <Card.Body>
-              <Card.Title className="card-title" type="text" name="className" onChange={onChange}>
-                {className}
-              </Card.Title>
-              <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
-                {lessonName} - {teacher}
-              </Card.Text>
-              <Button className="delete" variant="secondary" onClick={handleDelete}>
-                삭제
-              </Button>
+            <Card.Title className="card-title" type="text" name="className">
+              {className}
+            </Card.Title>
+            <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
+              {lessonName} - {teacher}
+            </Card.Text>
+            <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
+              삭제
+            </Button>
           </Card.Body>
         </Card>
       </Link>
@@ -125,8 +130,7 @@ function LandingPage() {
   });
 
   useEffect(() => {
-    // 렌더링 시 response.data를 classes state에 저장
-    //hearder에 토큰을 삽입함 (제거해도 무방)
+    // 렌더링 시 response.data를 classes state에 저장 - hearder에 토큰을 삽입함 (제거해도 무방)
     axios.get("/lesson/class/find/all", {
         header: {
           xAuthToken: localStorage.getItem("xAuthToken"),
@@ -176,17 +180,20 @@ function LandingPage() {
         <Modal.Body>
           <Form>
             <Form.Label>수업이름</Form.Label>
-            <Form.Control type="text" placeholder="수업이름을 입력해주세요" />
+            <Form.Control type="text" placeholder="수업이름을 입력해주세요" value={lessonName} name="lessonName" onChange={onChange}/>
 
             <Form.Label>선생님</Form.Label>
-            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" />
+            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" value={teacher} name="teacher" onChange={onChange}/>
 
             <Form.Label>강좌명</Form.Label>
-            <Form.Control type="text" placeholder="강좌명을 입력해주세요" />
+            <Form.Control type="text" placeholder="강좌명을 입력해주세요" value={className} name="className" onChange={onChange}/>
 
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={e => { 
+                  setFile(e.target.files[0]);
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
