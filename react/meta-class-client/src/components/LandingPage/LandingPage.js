@@ -11,7 +11,13 @@ function LandingPage() {
 
   const handleDelete = useCallback(() => {
     if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete("/lesson/class");
+
+      //hearder에 토큰을 삽입함 (제거해도 무방)
+      axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
+        header: {
+          xAuthToken: localStorage.getItem("xAuthToken"),
+        },
+      });
     }
   }, []);
 
@@ -81,7 +87,11 @@ function LandingPage() {
 
     await axios
       //hearder에 토큰을 삽입함 (제거해도 무방)
-      .post("/lesson/class", params)
+      .post("/lesson/class", params, {
+        hearder: {
+          xAuthToken: localStorage.getItem("xAuthToken"),
+        },
+      })
       .then(function (res) {
         //post 완료시 모달꺼짐
         handleClose();
@@ -91,6 +101,7 @@ function LandingPage() {
       });
   };
 
+  console.log(classes);
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
     return (
@@ -114,8 +125,17 @@ function LandingPage() {
   });
 
   useEffect(() => {
-    // TODO 렌더링 시 response.data를 classes state에 저장
-    axios.get("/lesson/class").then((response) => setClasses(response.data));
+    // 렌더링 시 response.data를 classes state에 저장
+    //hearder에 토큰을 삽입함 (제거해도 무방)
+    axios.get("/lesson/class/find/all", {
+        header: {
+          xAuthToken: localStorage.getItem("xAuthToken"),
+        },
+      })
+      .then(response => {
+        console.log(response);
+        setClasses(response.data.lessons);
+      });
   }, []);
 
   return (
