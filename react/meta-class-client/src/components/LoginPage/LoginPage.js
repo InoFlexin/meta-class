@@ -37,7 +37,7 @@ function LoginPage() {
       .then(function (res) {
         console.log(res);
         //로컬호스트에 토큰을 저장 (제거해도 무방하나 제거할시 LandingPage부분 토큰 코드도 제거해줘야됨)
-        localStorage.setItem("xAuthToken", res.data.xAuthToken);
+        localStorage.setItem("accessToken", res.data.accessToken);
       })
       .catch(function (error) {
         console.log(error);
