@@ -9,9 +9,16 @@ function LandingPage() {
 
   const [show, setShow] = useState(false);
 
-  const handleDelete = useCallback(() => {
+  const handleDelete = useCallback((teacher, className) => {
     if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete("/lesson/class");
+
+    //hearder에 토큰을 삽입함 (제거해도 무방)
+      axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
+        header: {
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+        },
+      });
+
     }
   }, []);
 
@@ -49,6 +56,9 @@ function LandingPage() {
     `lessonName : ${lessonName}  teacher : ${teacher} className : ${className}`
   );
 
+  //나중에 사진업로드 - file에 클래스 이미지 파일 저장됨
+    const [file, setFile] = useState();
+
   function onChange(e) {
 
     const type = e.target.lessonName;
@@ -71,37 +81,48 @@ function LandingPage() {
     }
   }
 
-  console.log(1)
-  const params = new URLSearchParams();
+  //post 
+  const handlePost = async () => {
+    const params = new URLSearchParams();
 
-  params.append('lessonName', lessonName);
-  params.append('teacher', teacher);
-  params.append('className', className);
+    params.append("lessonName", lessonName);
+    params.append("teacher", teacher);
+    params.append("className", className);
 
-  axios.post('/lesson/class', params)
-  .then(function (res) {
-    console.log(res);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    await axios
+      //hearder에 토큰을 삽입함 (제거해도 무방)
+      .post("/lesson/class", params, {
+        hearder: {
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+        },
+      })
+      .then(function (res) {
+        //post 완료시 모달꺼짐
+        handleClose();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
+  console.log(classes);
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
+
     return (
       <Link to={`/class/${className}`} className="card">
-        <Card >
+        <Card>
           <Card.Img variant="top" src="./images/b2.jpg" />
           <Card.Body>
-              <Card.Title className="card-title" type="text" name="className" onChange={onChange}>
-                {className}
-              </Card.Title>
-              <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
-                {lessonName} - {teacher}
-              </Card.Text>
-              <Button className="delete" variant="secondary" onClick={handleDelete}>
-                삭제
-              </Button>
+            <Card.Title className="card-title" type="text" name="className">
+              {className}
+            </Card.Title>
+            <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
+              {lessonName} - {teacher}
+            </Card.Text>
+            <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
+              삭제
+            </Button>
           </Card.Body>
         </Card>
       </Link>
@@ -109,8 +130,16 @@ function LandingPage() {
   });
 
   useEffect(() => {
-    // TODO 렌더링 시 response.data를 classes state에 저장
-    axios.get("/lesson/class").then((response) => setClasses(response.data));
+    // 렌더링 시 response.data를 classes state에 저장 - hearder에 토큰을 삽입함 (제거해도 무방)
+    axios.get("/lesson/class/find/all", {
+        header: {
+          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+        },
+      })
+      .then(response => {
+        console.log(response);
+        setClasses(response.data.lessons);
+      });
   }, []);
 
   return (
@@ -151,17 +180,20 @@ function LandingPage() {
         <Modal.Body>
           <Form>
             <Form.Label>수업이름</Form.Label>
-            <Form.Control type="text" placeholder="수업이름을 입력해주세요" />
+            <Form.Control type="text" placeholder="수업이름을 입력해주세요" value={lessonName} name="lessonName" onChange={onChange}/>
 
             <Form.Label>선생님</Form.Label>
-            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" />
+            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" value={teacher} name="teacher" onChange={onChange}/>
 
             <Form.Label>강좌명</Form.Label>
-            <Form.Control type="text" placeholder="강좌명을 입력해주세요" />
+            <Form.Control type="text" placeholder="강좌명을 입력해주세요" value={className} name="className" onChange={onChange}/>
 
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
-              <Form.Control type="file" />
+              <Form.Control type="file" onChange={e => { 
+                  setFile(e.target.files[0]);
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -169,7 +201,7 @@ function LandingPage() {
           <Button variant="secondary" onClick={handleClose}>
             닫기
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handlePost}>
             생성
           </Button>
         </Modal.Footer>
