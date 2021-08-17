@@ -1,24 +1,29 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  Button,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function LandingPage() {
-
   const [show, setShow] = useState(false);
 
   const handleDelete = useCallback((teacher, className) => {
     if (window.confirm("삭제하시겠습니까?")) {
-
-    //hearder에 토큰을 삽입함 (제거해도 무방)
+      //headers에 토큰을 삽입함 (제거해도 무방)
       axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
-        header: {
-          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+        headers: {
+          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
         },
       });
-
     }
   }, []);
 
@@ -51,19 +56,16 @@ function LandingPage() {
   const [lessonName, setLessonName] = useState("");
   const [teacher, setTeacher] = useState("");
   const [className, setClassName] = useState("");
+  const [imageFile, setImageFile] = useState(""); //사진업로드 - file 에 클래스 이미지 파일 저장됨
 
   console.log(
-    `lessonName : ${lessonName}  teacher : ${teacher} className : ${className}`
+    `lessonName : ${lessonName}  teacher : ${teacher} className : ${className} imageFile : ${imageFile}`
   );
 
-  //나중에 사진업로드 - file에 클래스 이미지 파일 저장됨
-    const [file, setFile] = useState();
-
   function onChange(e) {
+    const type = e.target.name;
 
-    const type = e.target.lessonName;
     switch (type) {
-
       case "lessonName":
         setLessonName(e.target.value);
         break;
@@ -81,19 +83,20 @@ function LandingPage() {
     }
   }
 
-  //post 
+  //post
   const handlePost = async () => {
     const params = new URLSearchParams();
 
     params.append("lessonName", lessonName);
     params.append("teacher", teacher);
     params.append("className", className);
+    params.append("file", imageFile);
 
     await axios
-      //hearder에 토큰을 삽입함 (제거해도 무방)
+      //headers 에 토큰을 삽입함 (제거해도 무방)
       .post("/lesson/class", params, {
-        hearder: {
-          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+        headers: {
+          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
         },
       })
       .then(function (res) {
@@ -108,32 +111,44 @@ function LandingPage() {
   console.log(classes);
 
   const mapClassas = classes.map(({ className, lessonName, teacher }) => {
-
     return (
-      <Link to={`/class/${className}`} className="card">
-        <Card>
-          <Card.Img variant="top" src="./images/b2.jpg" />
-          <Card.Body>
-            <Card.Title className="card-title" type="text" name="className">
-              {className}
-            </Card.Title>
-            <Card.Text className="card-text" type="text" name="className" onChange={onChange}>
-              {lessonName} - {teacher}
-            </Card.Text>
-            <Button className="delete" variant="secondary" onClick={() => handleDelete(teacher, className)}>
-              삭제
-            </Button>
-          </Card.Body>
+      <>
+        <Card class="card-text center">
+          <Link to={`/class/${className}`} className="card">
+            <Card.Img variant="top" type="file" name="imageFile" />
+            <Card.Body>
+              <Card.Title className="card-title" type="text" name="className">
+                {className}
+              </Card.Title>
+              <Card.Text
+                className="card-text"
+                type="text"
+                name="className"
+                onChange={onChange}
+              >
+                {lessonName} - {teacher}
+              </Card.Text>
+            </Card.Body>
+          </Link>
+          <Button
+            className="delete"
+            variant="secondary"
+            onClick={() => handleDelete(teacher, className)}
+          >
+            삭제
+          </Button>
         </Card>
-      </Link>
+      </>
     );
   });
 
   useEffect(() => {
-    // 렌더링 시 response.data를 classes state에 저장 - hearder에 토큰을 삽입함 (제거해도 무방)
-    axios.get("/lesson/class/find/all", {
-        header: {
-          "X-AUTH_TOKEN": localStorage.getItem("X-AUTH_TOKEN"),
+    // 렌더링 시 response.data를 classes state에 저장 - headers에 토큰을 삽입함 (제거해도 무방)
+    console.log(localStorage.getItem("X-AUTH-TOKEN"));
+    axios
+      .get("/lesson/class/find/all", {
+        headers: {
+          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
         },
       })
       .then(response => {
@@ -180,18 +195,41 @@ function LandingPage() {
         <Modal.Body>
           <Form>
             <Form.Label>수업이름</Form.Label>
-            <Form.Control type="text" placeholder="수업이름을 입력해주세요" value={lessonName} name="lessonName" onChange={onChange}/>
+            <Form.Control
+              type="text"
+              placeholder="수업이름을 입력해주세요"
+              value={lessonName}
+              name="lessonName"
+              onChange={onChange}
+            />
 
             <Form.Label>선생님</Form.Label>
-            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" value={teacher} name="teacher" onChange={onChange}/>
+            <Form.Control
+              type="text"
+              placeholder="선생님 성함을 입력해주세요"
+              value={teacher}
+              name="teacher"
+              onChange={onChange}
+            />
 
             <Form.Label>강좌명</Form.Label>
-            <Form.Control type="text" placeholder="강좌명을 입력해주세요" value={className} name="className" onChange={onChange}/>
+            <Form.Control
+              type="text"
+              placeholder="강좌명을 입력해주세요"
+              value={className}
+              name="className"
+              onChange={onChange}
+            />
 
             <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>강좌 이미지를 업로드하세요.</Form.Label>
-              <Form.Control type="file" onChange={e => { 
-                  setFile(e.target.files[0]);
+              <Form.Label>강좌 이미지</Form.Label>
+              <br></br>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                name="imageFile"
+                onChange={e => {
+                  setImageFile(e.target.files[0]);
                 }}
               />
             </Form.Group>
