@@ -92,8 +92,6 @@ function RegisterPage() {
         // ).catch(function(error){alert("로그인 실패"); console.log(error)})
     }
 
-
-
     return (
         <div style={{
             display: 'flex', 
@@ -103,7 +101,7 @@ function RegisterPage() {
             height: "100vh"
         }}>
             
-            <Form className="register-form">
+            <Form className="login-form">
                 <h1 className="text-center">
                     <span className="font-weight-bold">회원가입</span>
                 </h1>
@@ -125,7 +123,7 @@ function RegisterPage() {
                         회원가입
                     </Button>
                     <div className="text-center">
-                    Already registered  <Link to="/login"><span className="signIn">Sign in</span></Link>
+                    Already registered  <Link to="/login" className="signIn"><span>Sign in</span></Link>
                     </div>
                 </div>
             </Form>
