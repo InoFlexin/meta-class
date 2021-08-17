@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ClassPage from "./components/Class/ClassPage";
-//import Auth from "./hoc/Auth";
+
 // pages for this product
 import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
