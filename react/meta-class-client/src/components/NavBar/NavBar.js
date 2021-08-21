@@ -7,14 +7,14 @@ function NavBar() {
   return (
     <Navbar bg="white" expand="lg" fixed="top">
       <Container>
-        <Navbar.Brand href="#/">
-          <a href="/" className="logo">
-            <span>
-              <img src="./images/logo.svg" alt="" />
-            </span>
-            <span className="header-title">M E T A C L A S S</span>
-          </a>
-        </Navbar.Brand>
+        <Link to="/" className="logo">
+          <Navbar.Brand  >
+              <span>
+                <img src="./images/logo.svg" alt="" />
+              </span>
+              <span className="header-title">M E T A C L A S S</span>
+          </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
