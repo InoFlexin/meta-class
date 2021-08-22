@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import {Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ function LandingPage() {
       teacher: "kkk",
       className: "Css 강의",
       fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg", //더미테이터(레드벨벳-슬기)
+        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg", //더미테이터 슬기
     },
     {
       lessonName: "CLASS_1",
@@ -133,7 +133,7 @@ function LandingPage() {
         <>
           <Card class="card-text center">
             <Link to={`/class/${className}`} className="card">
-              <Card.Img src={fileName} variant="top" type="file" name="imageFile"></Card.Img>
+              <Card.Img variant="top" src={`./images/${fileName}`} type="file" name="imageFile" />
               <Card.Body>
                 <Card.Title className="card-title" type="text" name="className">
                   {className}
