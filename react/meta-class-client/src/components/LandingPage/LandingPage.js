@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import { Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
@@ -27,29 +27,21 @@ function LandingPage() {
       lessonName: "CLASS_1",
       teacher: "kkk",
       className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg", //더미테이터 슬기
     },
     {
       lessonName: "CLASS_1",
       teacher: "kkk",
       className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
     },
     {
       lessonName: "CLASS_1",
       teacher: "kkk",
       className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
     },
     {
       lessonName: "CLASS_1",
       teacher: "kkk",
       className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
     },
   ]);
 
@@ -84,12 +76,12 @@ function LandingPage() {
     }
   }
 
-  const handlePreview = e => {
+  const preview = e => {
     let reader = new FileReader();
     if (e.target.files && e.target.files.length) {
       let file = e.target.files[0];
       reader.onloadend = () => {
-        setImageFile(file);
+        setImage(file);
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -118,6 +110,7 @@ function LandingPage() {
       })
       .then(function (res) {
         //post 완료시 모달꺼짐
+        setClasses(res.data);
         handleClose();
       })
       .catch(function (error) {
@@ -127,39 +120,37 @@ function LandingPage() {
 
   console.log(classes);
 
-  const mapClassas = classes.map(
-    ({ className, lessonName, teacher, fileName }) => {
-      return (
-        <>
-          <Card class="card-text center">
-            <Link to={`/class/${className}`} className="card">
-              <Card.Img variant="top" src={`./images/${fileName}`} type="file" name="imageFile" />
-              <Card.Body>
-                <Card.Title className="card-title" type="text" name="className">
-                  {className}
-                </Card.Title>
-                <Card.Text
-                  className="card-text"
-                  type="text"
-                  name="className"
-                  onChange={onChange}
-                >
-                  {lessonName} - {teacher}
-                </Card.Text>
-              </Card.Body>
-            </Link>
-            <Button
-              className="delete"
-              variant="secondary"
-              onClick={() => handleDelete(teacher, className)}
-            >
-              삭제
-            </Button>
-          </Card>
-        </>
-      );
-    }
-  );
+  const mapClassas = classes.map(({ className, lessonName, teacher }) => {
+    return (
+      <>
+        <Card class="card-text center">
+          <Link to={`/class/${className}`} className="card">
+            <Card.Img variant="top" type="file" name="imageFile" />
+            <Card.Body>
+              <Card.Title className="card-title" type="text" name="className">
+                {className}
+              </Card.Title>
+              <Card.Text
+                className="card-text"
+                type="text"
+                name="className"
+                onChange={onChange}
+              >
+                {lessonName} - {teacher}
+              </Card.Text>
+            </Card.Body>
+          </Link>
+          <Button
+            className="delete"
+            variant="secondary"
+            onClick={() => handleDelete(teacher, className)}
+          >
+            삭제
+          </Button>
+        </Card>
+      </>
+    );
+  });
 
   useEffect(() => {
     // 렌더링 시 response.data를 classes state에 저장 - headers에 토큰을 삽입함 (제거해도 무방)
@@ -247,14 +238,13 @@ function LandingPage() {
                 type="file"
                 accept="image/*"
                 name="imageFile"
-                // 변경되면 함수 실행
                 onChange={e => {
-                  handlePreview(e);
+                  setImageFile(e.target.files[0]);
                 }}
               />
             </Form.Group>
           </Form>
-          <img src={preview} className="img-fluid" alt="" />
+          <img src={preview} alt="" />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
