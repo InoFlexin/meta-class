@@ -1,9 +1,6 @@
 package com.metaclass.lesson.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -24,14 +21,17 @@ public class Lesson {
 
     private String lessonName;  // 강좌명
 
-    public Lesson(String className, String teacher, String lessonName) {
+    private String fileName;    // 파일명
+
+    public Lesson(String className, String teacher, String lessonName, String fileName) {
         this.className = className;
         this.teacher = teacher;
         this.lessonName = lessonName;
+        this.fileName = fileName;
     }
 
     @Override
     public String toString() {
-        return "classId: " + id + " className: " + className + " userName: " + teacher + " lessonName: " + lessonName;
+        return "classId: " + id + " className: " + className + " userName: " + teacher + " lessonName: " + lessonName + "fileName: " + fileName;
     }
 }

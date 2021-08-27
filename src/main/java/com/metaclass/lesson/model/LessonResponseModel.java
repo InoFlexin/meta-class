@@ -13,11 +13,13 @@ public class LessonResponseModel {
     private String className;
     private String teacher;
     private String lessonName;
+    private String fileName;
 
     public static LessonResponseModelBuilder of(Lesson lesson) {
         return LessonResponseModel.builder()
                 .className(lesson.getClassName())
                 .teacher(lesson.getTeacher())
-                .lessonName(lesson.getLessonName());
+                .lessonName(lesson.getLessonName())
+                .fileName(lesson.getFileName());
     }
 }
