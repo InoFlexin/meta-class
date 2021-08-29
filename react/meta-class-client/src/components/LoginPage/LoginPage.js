@@ -73,7 +73,7 @@ function LoginPage() {
         </FormGroup>
         <FormGroup>
           <Input
-            type="passwd"
+            type="password"
             placeholder="비밀번호"
             name="PW"
             value={pw}
