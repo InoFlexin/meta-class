@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 function RegisterPage() {
 
         const [name,setName] = useState('');
         const [pw,setPw] = useState('');
         const [checkPw,setCheckPw] = useState('');
         const [email, setEmail] = useState('');
+
+        const history = useHistory();
 
         console.log(`name : ${name} email : ${email} pw : ${pw} checkPw : ${checkPw}`)
         function onChange(e){
@@ -63,33 +65,12 @@ function RegisterPage() {
         axios.post('/authentication/register', params)
         .then(function (res) {
           console.log(res);
+          localStorage.setItem("X_AUTH_TOKEN", res.data.accessToken);
+          history.push("login");
         })
         .catch(function (error) {
           console.log(error);
         });
-
-
-        // axios({
-        //     method: "POST",
-        //     url: 'http://localhost:8080/authentication/register',
-        //     data: {
-        //         email: email,
-        //         username: name,
-        //         password: pw
-        //     }
-        // }).then((res) => {
-        //         alert("로그인 완료!");
-        // }).catch((res) => {
-        //     console.log(res);
-        // })
-
-        // axios.post('',user).then(
-        //     function(res){
-        //         alert("로그인 성공");
-        //         console.log(res)
-
-        //     }
-        // ).catch(function(error){alert("로그인 실패"); console.log(error)})
     }
 
     return (
