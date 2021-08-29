@@ -12,7 +12,7 @@ function LoginPage() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(localStorage.getItem("token"));
+    console.log("current token-> " + localStorage.getItem("X_AUTH_TOKEN"));
   });
 
   const onChange = e => {
