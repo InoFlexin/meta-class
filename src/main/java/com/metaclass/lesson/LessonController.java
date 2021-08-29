@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/lesson")
@@ -63,6 +64,11 @@ public class LessonController {
     @RequestMapping(value = "/class", method = RequestMethod.DELETE)
     public ResponseEntity<LessonStatusModel> deleteClass(LessonFindModel lessonFindModel) {
         return ResponseEntity.ok(lessonService.deleteRoom(lessonFindModel));
+    }
+
+    @RequestMapping("/class/game")
+    public ResponseEntity<LessonGameAddressModel> loadGame() {
+        return ResponseEntity.ok(LessonGameAddressModel.builder().address("/games/game.html").build());
     }
 
 }
