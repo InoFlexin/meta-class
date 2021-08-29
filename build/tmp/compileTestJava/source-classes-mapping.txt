@@ -1,0 +1,2 @@
+com/metaclass/test/UserTest.java
+ com.metaclass.test.UserTest

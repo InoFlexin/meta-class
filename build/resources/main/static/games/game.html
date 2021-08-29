@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Meta-class MVP</title>
+    <style>
+			body { margin: 0; }
+    </style>
+</head>
+<body>
+    <video id="awd" style="display:none" autoplay playsinline></video>
+
+    <script type="module" src="./three.js/build/three.js"></script>
+    <script type="module" src="./three.js/examples/jsm/loaders/OBJLoader.js"></script>
+    <script type="module" src="./three.js/examples/jsm/controls/FirstPersonControls.js"></script>
+    <script type="module" src="./game-script.js"></script>
+    <script type="module">
+            import {initGame} from './game-script.js';
+            initGame();
+    </script>
+</body>
+</html>
