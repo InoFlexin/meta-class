@@ -13,7 +13,7 @@ function LandingPage() {
       //headers에 토큰을 삽입함 (제거해도 무방)
       axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
         headers: {
-          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
+          "X-AUTH-TOKEN": localStorage.getItem("X_AUTH_TOKEN"),
         },
       });
     }
@@ -112,7 +112,7 @@ function LandingPage() {
       //headers 에 토큰을 삽입함 (제거해도 무방)
       .post("/lesson/class", form, {
         headers: {
-          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
+          "X-AUTH-TOKEN": localStorage.getItem("X_AUTH_TOKEN"),
           "Content-Type": "multipart/form-data",
         },
       })
@@ -127,12 +127,33 @@ function LandingPage() {
 
   console.log(classes);
 
+  const joinGame = () => {
+      axios
+        //headers 에 토큰을 삽입함 (제거해도 무방)
+        .get("/lesson/class/game", {
+          headers: {
+            "X-AUTH-TOKEN": localStorage.getItem("X_AUTH_TOKEN"),
+          },
+        })
+        .then(function (res) {
+            if(res.status == 200) {
+                window.location.href = res.data.address;
+            }
+            else {
+                alert("로그인 후 이용해주세요.");
+            }
+        })
+        .catch(function (error) {
+            alert("로그인 후 이용해주세요.");
+        });
+  }
+
   const mapClassas = classes.map(
     ({ className, lessonName, teacher, fileName }) => {
       return (
         <>
-          <Card class="card-text center embed-responsive embed-responsive-4by3">
-            <Link to={`/class/${className}`} className="card">
+          <Card class="card-text center embed-responsive embed-responsive-4by3" onClick={joinGame}>
+            <Link className="card">
               <Card.Img variant="top" src={fileName} type="file" name="imageFile" class="embed-responsive-item" />
               <Card.Body>
                 <Card.Title className="card-title" type="text" name="className">
@@ -163,11 +184,11 @@ function LandingPage() {
 
   useEffect(() => {
     // 렌더링 시 response.data를 classes state에 저장 - headers에 토큰을 삽입함 (제거해도 무방)
-    console.log(localStorage.getItem("X-AUTH-TOKEN"));
+    console.log(localStorage.getItem("X_AUTH_TOKEN"));
     axios
       .get("/lesson/class/find/all", {
         headers: {
-          "X-AUTH-TOKEN": localStorage.getItem("X-AUTH-TOKEN"),
+          "X-AUTH-TOKEN": localStorage.getItem("X_AUTH_TOKEN"),
         },
       })
       .then(response => {
