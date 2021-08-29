@@ -131,9 +131,9 @@ function LandingPage() {
     ({ className, lessonName, teacher, fileName }) => {
       return (
         <>
-          <Card class="card-text center">
+          <Card class="card-text center embed-responsive embed-responsive-4by3">
             <Link to={`/class/${className}`} className="card">
-              <Card.Img variant="top" src={fileName} type="file" name="imageFile" />
+              <Card.Img variant="top" src={fileName} type="file" name="imageFile" class="embed-responsive-item" />
               <Card.Body>
                 <Card.Title className="card-title" type="text" name="className">
                   {className}
