@@ -1,6 +1,7 @@
 package com.metaclass.member.repository;
 
 import com.metaclass.member.domain.Member;
+
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,6 +1,5 @@
 package com.metaclass.member;
 
-import com.metaclass.member.domain.Member;
 import com.metaclass.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

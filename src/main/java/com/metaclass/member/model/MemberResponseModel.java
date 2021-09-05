@@ -1,5 +1,5 @@
 package com.metaclass.member.model;
-// 어떤 데이터를 넣어서 줘야할지
+
 import com.metaclass.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;

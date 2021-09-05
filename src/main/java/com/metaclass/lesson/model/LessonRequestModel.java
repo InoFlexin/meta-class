@@ -1,4 +1,5 @@
 package com.metaclass.lesson.model;
+
 import com.metaclass.lesson.domain.Lesson;
 
 import lombok.AllArgsConstructor;
