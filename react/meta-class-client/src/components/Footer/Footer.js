@@ -11,12 +11,11 @@ function Footer(){
             fontSize:'1rem'
         }}>
         
-        <ul className="copyright">
-			<li>&copy; Copyright 2021</li>
-            <li>Korea Creative Content Agency all rights reserved</li>
-            <li>by like-professional</li>
-		</ul>
-
+            <ul className="copyright">
+                <li>&copy; Copyright 2021</li>
+                <li>Korea Creative Content Agency all rights reserved</li>
+                <li>by like-professional</li>
+            </ul>
         </div>
     )
 }
