@@ -1,10 +1,11 @@
 package com.metaclass.member.model;
-// 회원가입 같은거 할때
+
 import com.metaclass.authentication.role.Authority;
 import com.metaclass.member.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
