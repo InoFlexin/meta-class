@@ -1,57 +1,29 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import { Card, Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function LandingPage() {
-  const [show, setShow] = useState(false);
+  const [ show, setShow ] = useState(false);
 
   const handleDelete = useCallback((teacher, className) => {
     if (window.confirm("삭제하시겠습니까?")) {
       //headers에 토큰을 삽입함 (제거해도 무방)
-      axios.delete(`/lesson/class?teacher=${teacher}&className=${className}`, {
+      axios.delete(`/lesson/class?teacher=${ teacher }&className=${ className }`, {
         headers: {
           "X-AUTH-TOKEN": localStorage.getItem("X_AUTH_TOKEN"),
         },
       });
+      window.location.reload();
     }
   }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [classes, setClasses] = useState([
-    {
-      lessonName: "CLASS_1",
-      teacher: "kkk",
-      className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg", //더미테이터 슬기
-    },
-    {
-      lessonName: "CLASS_1",
-      teacher: "kkk",
-      className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
-    },
-    {
-      lessonName: "CLASS_1",
-      teacher: "kkk",
-      className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
-    },
-    {
-      lessonName: "CLASS_1",
-      teacher: "kkk",
-      className: "Css 강의",
-      fileName:
-        "https://dimg.donga.com/wps/SPORTS/IMAGE/2021/08/05/108380761.1.jpg",
-    },
-  ]);
+  const [classes, setClasses] = useState([ ]); // class 생성되는곳
 
   const [lessonName, setLessonName] = useState("");
   const [teacher, setTeacher] = useState("");
@@ -60,7 +32,7 @@ function LandingPage() {
   const [preview, setPreview] = useState("");
 
   console.log(
-    `lessonName : ${lessonName}  teacher : ${teacher} className : ${className} imageFile : ${imageFile}`
+    `lessonName : ${ lessonName }  teacher : ${ teacher } className : ${ className } imageFile : ${ imageFile }`
   );
 
   function onChange(e) {
@@ -86,14 +58,17 @@ function LandingPage() {
 
   const handlePreview = e => {
     let reader = new FileReader();
+    
     if (e.target.files && e.target.files.length) {
       let file = e.target.files[0];
+      
       reader.onloadend = () => {
         setImageFile(file);
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
-    } else {
+    } 
+    else {
       setPreview("");
     }
   };
@@ -101,6 +76,7 @@ function LandingPage() {
   //post
   const handlePost = async () => {
     const form = new FormData();
+
     form.append("lessonName", lessonName);
     form.append("teacher", teacher);
     form.append("className", className);
@@ -119,6 +95,7 @@ function LandingPage() {
       .then(function (res) {
         //post 완료시 모달꺼짐
         handleClose();
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
@@ -152,28 +129,19 @@ function LandingPage() {
     ({ className, lessonName, teacher, fileName }) => {
       return (
         <>
-          <Card class="card-text center embed-responsive embed-responsive-4by3" onClick={joinGame}>
+          <Card class="card-text center embed-responsive embed-responsive-4by3">
             <Link className="card">
-              <Card.Img variant="top" src={fileName} type="file" name="imageFile" class="embed-responsive-item" />
+              <Card.Img variant="top" src={ fileName } type="file" name="imageFile" class="embed-responsive-item" onClick={ joinGame }/>
               <Card.Body>
                 <Card.Title className="card-title" type="text" name="className">
-                  {className}
+                  { className }
                 </Card.Title>
-                <Card.Text
-                  className="card-text"
-                  type="text"
-                  name="className"
-                  onChange={onChange}
-                >
-                  {lessonName} - {teacher}
+                <Card.Text lassName="card-text" type="text" name="className" onChange={ onChange }>
+                  { lessonName } - { teacher }
                 </Card.Text>
               </Card.Body>
             </Link>
-            <Button
-              className="delete"
-              variant="secondary"
-              onClick={() => handleDelete(teacher, className)}
-            >
+            <Button className="delete" variant="secondary" onClick={ () => handleDelete(teacher, className) }>
               삭제
             </Button>
           </Card>
@@ -215,78 +183,52 @@ function LandingPage() {
           </Col>
         </Row>
         <Row>
-          <Col />
-          <Col />
+          <Col/>
+          <Col/>
           <Col>
-            <Button className="create" variant="secondary" onClick={handleShow}>
+            <Button className="create" variant="secondary" onClick={ handleShow }>
               CLASS 생성
             </Button>
           </Col>
         </Row>
       </Container>
 
-      <Row sm={3} style={{ margin: "10px 67px" }}>
-        {mapClassas}
+      <Row sm={ 3 } style={{ margin: "10px 67px" }}>
+        { mapClassas }
       </Row>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={ show } onHide={ handleClose }>
         <Modal.Header closeButton>
           <Modal.Title>Class 생성</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Label>수업이름</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="수업이름을 입력해주세요"
-              value={lessonName}
-              name="lessonName"
-              onChange={onChange}
-            />
-
+            <Form.Control type="text" placeholder="수업이름을 입력해주세요" value={ lessonName } name="lessonName" onChange={ onChange }/>
             <Form.Label>선생님</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="선생님 성함을 입력해주세요"
-              value={teacher}
-              name="teacher"
-              onChange={onChange}
-            />
-
+            <Form.Control type="text" placeholder="선생님 성함을 입력해주세요" value={ teacher } name="teacher" onChange={ onChange }/>
             <Form.Label>강좌명</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="강좌명을 입력해주세요"
-              value={className}
-              name="className"
-              onChange={onChange}
-            />
-
+            <Form.Control type="text" placeholder="강좌명을 입력해주세요" value={ className } name="className" onChange={ onChange }/>
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>강좌 이미지</Form.Label>
-              <br></br>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                name="imageFile"
-                // 변경되면 함수 실행
+              <br/>
+              <Form.Control type="file" accept="image/*" name="imageFile"  // 변경되면 함수 실행
                 onChange={e => {
                   handlePreview(e);
                 }}
               />
             </Form.Group>
           </Form>
-          <img src={preview} className="img-fluid" alt="" />
+          <img src={ preview } className="img-fluid" alt="" />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={ handleClose }>
             닫기
           </Button>
-          <Button variant="secondary" onClick={handlePost}>
+          <Button variant="secondary" onClick={ handlePost }>
             생성
           </Button>
         </Modal.Footer>
       </Modal>
-
       <Footer />
     </div>
   );
