@@ -68,7 +68,7 @@ public class LessonController {
 
     @RequestMapping("/class/game")
     public ResponseEntity<LessonGameAddressModel> loadGame() {
-        return ResponseEntity.ok(LessonGameAddressModel.builder().address("/games/game.html").build());
+        return ResponseEntity.ok(LessonGameAddressModel.builder().address("https://45.76.211.222:8080/games/game.html").build());
     }
 
 }
