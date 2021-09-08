@@ -7,13 +7,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 
 class App extends React.Component {
-  componentDidMount() {
-    fetch("/api/hello")
-      .then((response) => response.json())
-      .then((message) => {
-        this.setState({ message: message.message, url: message.url });
-      });
-  }
+  componentDidMount() {}
 
   render() {
     return (
