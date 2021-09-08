@@ -1,11 +1,13 @@
 package com.metaclass.authentication.jwt;
 
 import com.metaclass.authentication.model.JwtTokenModel;
+import com.metaclass.configuration.AppProperties;
 import com.metaclass.member.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,17 +27,28 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class JwtTokenProvider {
 
-    private static String jwtTokenSecret = "meta-class-like-professional";
+    @Autowired
+    private AppProperties appProperties;
+
+    @Value("${app.auth.tokenSecret}")
+    private static String jwtTokenSecret;
+
     private static String bearer = "bearer";
-    private static final long ACCESS_VALIDATION_TIME = 60 * 60 * 1000L; // 1시간
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
+
+    @Value("${app.auth.tokenExpirationSeconds}")
+    private static long ACCESS_VALIDATION_TIME = 60 * 60 * 1000L; // 1시간
+
+    @Value("${app.auth.refreshTokenExpiredSeconds}")
+    private static long REFRESH_TOKEN_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {
-        jwtTokenSecret = Base64.getEncoder().encodeToString(jwtTokenSecret.getBytes());
+        ACCESS_VALIDATION_TIME = appProperties.getAuth().getTokenExpirationSeconds() * 1000L;
+        REFRESH_TOKEN_EXPIRE_TIME = appProperties.getAuth().getRefreshTokenExpiredSeconds();
+        jwtTokenSecret = Base64.getEncoder().encodeToString(appProperties.getAuth().getTokenSecret().getBytes());
     }
 
     public JwtTokenModel generateTokenModel(Authentication authentication) {
