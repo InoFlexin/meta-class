@@ -31,10 +31,6 @@ function LandingPage() {
   const [imageFile, setImageFile] = useState(""); //사진업로드 - file 에 클래스 이미지 파일 저장됨
   const [preview, setPreview] = useState("");
 
-  console.log(
-    `lessonName : ${ lessonName }  teacher : ${ teacher } className : ${ className } imageFile : ${ imageFile }`
-  );
-
   function onChange(e) {
     const type = e.target.name;
 
@@ -82,8 +78,6 @@ function LandingPage() {
     form.append("className", className);
     form.append("file", imageFile);
 
-    console.log(form);
-
     await axios
       //headers 에 토큰을 삽입함 (제거해도 무방)
       .post("/lesson/class", form, {
@@ -98,7 +92,6 @@ function LandingPage() {
         window.location.reload();
       })
       .catch(function (error) {
-        console.log(error);
       });
   };
 
@@ -152,7 +145,6 @@ function LandingPage() {
 
   useEffect(() => {
     // 렌더링 시 response.data를 classes state에 저장 - headers에 토큰을 삽입함 (제거해도 무방)
-    console.log(localStorage.getItem("X_AUTH_TOKEN"));
     axios
       .get("/lesson/class/find/all", {
         headers: {
@@ -160,7 +152,6 @@ function LandingPage() {
         },
       })
       .then(response => {
-        console.log(response);
         setClasses(response.data.lessons);
       });
   }, []);
