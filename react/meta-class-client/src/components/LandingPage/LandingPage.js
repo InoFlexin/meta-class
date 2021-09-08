@@ -95,8 +95,6 @@ function LandingPage() {
       });
   };
 
-  console.log(classes);
-
   const joinGame = () => {
       axios
         //headers 에 토큰을 삽입함 (제거해도 무방)
