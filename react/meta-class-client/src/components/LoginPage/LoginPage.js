@@ -10,10 +10,6 @@ function LoginPage() {
 
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(localStorage.getItem("token"));
-  });
-
   const onChange = e => {
     const { name, value } = e.target;
     
@@ -45,9 +41,7 @@ function LoginPage() {
           localStorage.setItem("X_AUTH_TOKEN", res.data.accessToken);
           history.push("/");
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+        .catch(function (error) {});
   }
 
   return (

@@ -11,8 +11,6 @@ function RegisterPage() {
     const [email, setEmail] = useState('');
 
     const history = useHistory();
-
-    console.log(`name : ${ name } email : ${ email } pw : ${ pw } checkPw : ${ checkPw }`)
     
     function onChange(e) {
 
@@ -61,13 +59,10 @@ function RegisterPage() {
         axios
             .post('/authentication/register', params)
             .then(function (res) {
-                console.log(res);
                 localStorage.setItem("X_AUTH_TOKEN", res.data.accessToken);
                 history.push("login");
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            .catch(function (error) {});
     }
 
     return (
